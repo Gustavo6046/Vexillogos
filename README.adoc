@@ -66,7 +66,8 @@ with the outer radius being the automatic radius of any regular shape
 (i.e. the maximum radius inscribable within the current region), and the
 inner radius defaulting to 50% of the outer radius, a default which is
 overridable with `inner X`, where X is a percentage or ratio value which
-multiplies the outer radius (e.g. `25%`, `1/4` or `2:8`).
+multiplies the outer radius (e.g. `25%`, `1/4` or `2:8`). For instance,
+`fivestar inner 75%` is a fat, five-pointed star.
 
 g. Diagonal splits, split a region into 'left' and 'right' regions, by defining
 a line splitting thruogh the centre of the region, that from left to right
