@@ -83,12 +83,12 @@ area within 'inner'.
 +   III. The thickness of the border is defined by a percentage or ratio
     proportion, between the edge and the centre.
 +
-    NOTE: More specifically, it is defined such that at any point along the
-    region edge, at the line segment formed between it, perpendicular to the
-    edge, and the projection of the centre of the convex hull or bounding box
-    (depending on I or II) onto an infinite line extending from line segment,
-    the section of the line segment that intersects with the border is the
-    outer N% (or A/Bths) of the full length of this line segment.
+NOTE: More specifically, it is defined such that at any point along the
+region edge, at the line segment formed between it, perpendicular to the
+edge, and the projection of the centre of the convex hull or bounding box
+(depending on I or II) onto an infinite line extending from line segment,
+the section of the line segment that intersects with the border is the
+outer N% (or A/Bths) of the full length of this line segment.
 +
 +   IV. For III, the centre point is considered as either the centre of mass
     of the convex hull or, in case of 'box' mode, the centre of the rectangular
