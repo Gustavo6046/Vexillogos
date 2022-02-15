@@ -71,7 +71,7 @@ overridable with `inner X`, where X is a percentage or ratio value which
 multiplies the outer radius (e.g. `25%`, `1/4` or `2:8`). For instance,
 `fivestar inner 75%` is a fat, five-pointed star.
 
-. Diagonal splits, split a region into `left` and `right' regions, by defining
+. Diagonal splits, split a region into `left` and `right` regions, by defining
 a line splitting thruogh the centre of the region, that from left to right
 either goes upward or downward - `diagonal up` or `diagonal down`.
 ..  By default, this line's angle is that between the bottom left and top
