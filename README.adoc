@@ -1,56 +1,106 @@
-Vexillogos 1.0
-==============
-Gustavo Ramos Rehermann
+= Vexillogos 1.0
 :description: A vexillological description syntax, made for humans and computers alike.
+Gustavo Ramos Rehermann
 :toc:
 :numbered:
 
-Vexillogos is a vexillological description language, partially inspired by Lua, which
-has a focus on simplicity and expressivity, ease of reading and writing for humans, and
-ease of parsing for computers.
+Vexillogos is a vexillological description language, partially inspired by Lua,
+which has a focus on simplicity and expressivity, ease of reading and writing
+for humans, and ease of parsing for computers.
 
-It is hierarchical in nature, and operates by subdividing a root region, the 'flag', recursively
-into smaller regions, and applying solid colour to those which are not split further.
+It is hierarchical in nature, and operates by subdividing a root region,
+the 'flag', recursively into smaller regions, and applying solid colour to
+those which are not split further.
 
 
 [#rules]
 == Rules
 
-a. You "paint" the flag by writing a list of commands that divide an initial rectangle into _regions_, applying colour to 'leaf' regions (i.e. those which are not split further).
+Vexillogos grammar and hierarchy is roughly defined as follows.
 
-b. The initial rectangle has the special region name `flag`, which does not need 'region' before it; you can use an optional property 'ratio' to define the size ratio, which defaults to 2:3
+a. You "paint" the flag by writing a list of commands that divide an initial
+rectangle into _regions_, applying colour to 'leaf' regions (i.e. those which
+are not split further).
 
-c. After a region specifier and optional properties, must be, either a colour value, or a split definition followed by region stylesheets, followed by `end`.
-+   I. To paint a region, simply write a colour of your choice after its definition.
+b. The initial rectangle has the special region name `flag`, which does not
+need 'region' before it; you can use an optional property 'ratio' to define
+the size ratio, which defaults to 2:3
+
+c. After a region specifier and optional properties, must be, either a colour
+value, or a split definition followed by region stylesheets, followed by `end`.
++   I. To paint a region, simply write a colour of your choice after its
+    definition.
 +   II. To split a region, put a splitting command after it.
 
-d. A split command will define its own regions which are only valid in its region stylesheet block, and not child ones either.
+d. A split command will define its own regions which are only valid in its region
+stylesheet block, and not child ones either.
 
-e. A 'region <id>' clause applies a colour or split to a region, while a 'default' clause will apply the same colour or split pattern to all unspecified regions.
-+   I. A split within a default clause will usually be repeated for each individual region.
-+   II. The optional property 'contiguous', after the clause keyword 'default', will change the behaviour above, so that the split only repeats for all *contiguous* areas.
+e. A 'region <id>' clause applies a colour or split to a region, while
+a 'default' clause will apply the same colour or split pattern to all
+unspecified regions.
++   I. A split within a default clause will usually be repeated for each
+    individual region.
++   II. The optional property 'contiguous', after the clause keyword 'default',
+    will change the behaviour above, so that the split only repeats for all
+    *contiguous* areas.
 +   III. The above conditions also apply for concave shapes.
 
-f. Regular splits (bars or shapes) will split a region by it bounding box, even if the region is not a rectangle or convex shape.
-+   I. Horizontal and vertical bar strips are enumerated from left to right (for vertical splits), or top to bottom (for horizontal splits), starting at 1.
-+   II. Regular shape splits, split a region into an 'inner' and an 'outer' region, which are complements of the region; e.g. for a rectangle with a losangle inside it,'outer' is the area outside the rectangle. regular shapes are inscribed as large as possible in the centre of the previous region.
+f. Regular splits (bars or shapes) will split a region by it bounding box, even
+if the region is not a rectangle or convex shape.
++   I. Horizontal and vertical bar strips are enumerated from left to right
+    (for vertical splits), or top to bottom (for horizontal splits), starting at 1.
++   II. Regular shape splits, split a region into an 'inner' and an 'outer'
+    region, which are complements of the region; e.g. for a rectangle with a
+    losangle inside it,'outer' is the area outside the rectangle. regular
+    shapes are inscribed as large as possible in the centre of the previous
+    region.
 
-g. Diagonal splits, split a region into 'left' and 'right' regions, by defining a line splitting thruogh the centre of the region, that from left to right either goes upward or downward - 'diagonal up' or 'diagonal down'.
-+   I. By default, this line's angle is that between the bottom left and top right corners of the bounding box, even in the convex hull -- this behaviour can be changed by manually specifying a slope property, `slope a/b`, after upward or downward, where 'a/b' is a fraction whose components are whole numbers of at least 1. Unlike the default automatic slope, this is an absolute value by default, but the value can be preceded by `relative` to instead serve as a multiplier, such as `slope relative 3/2`.
-+   II. By default, the centre of the region is considered to be the centre of mass of its convex hull. For non-rectangular convex hulls, this behaviour can be changed to instead consider the centre of the rectangular bounding box of this region.
+g. Diagonal splits, split a region into 'left' and 'right' regions, by defining
+a line splitting thruogh the centre of the region, that from left to right
+either goes upward or downward - 'diagonal up' or 'diagonal down'.
++   I. By default, this line's angle is that between the bottom left and top
+    right corners of the bounding box, even in the convex hull -- this
+    behaviour can be changed by manually specifying a slope property,
+    `slope a/b`, after upward or downward, where 'a/b' is a fraction whose
+    components are whole numbers of at least 1. Unlike the default automatic
+    slope, this is an absolute value by default, but the value can be preceded
+    by `relative` to instead serve as a multiplier, such as
+    `slope relative 3/2`.
++   II. By default, the centre of the region is considered to be the centre of
+    mass of its convex hull. For non-rectangular convex hulls, this behaviour
+    can be changed to instead consider the centre of the rectangular bounding
+    box of this region.
 
-h. A border split splits a region into inner and outer regions, by adding a border along every edge. the area of this border becomes 'outer', and the area within 'inner'.
-+   I. The default behaviour is to add a border within the convex hull of the region, which is parallel to the edges of the region.
-+   II. The optional property 'box' between the split keyword 'border' and its thickness value (III), changes the default behaviour, by adding a border within the bounding box instead, akin to the regular splits described in (f).
-+   III. The thickness of the border is defined by a percentage or ratio proportion, between the edge and the centre.
+h.  A border split splits a region into inner and outer regions, by adding a
+border along every edge. the area of this border becomes 'outer', and the
+area within 'inner'.
++   I. The default behaviour is to add a border within the convex hull of the
+    region, which is parallel to the edges of the region.
++   II. The optional property 'box' between the split keyword 'border' and its
+    thickness value (III), changes the default behaviour, by adding a border
+    within the bounding box instead, akin to the regular splits described
+    in (f).
++   III. The thickness of the border is defined by a percentage or ratio
+    proportion, between the edge and the centre.
 +
-    NOTE: More specifically, it is defined such that at any point along the region edge, at the line segment formed between it, perpendicular to the edge, and the projection of the centre of the convex hull or bounding box (depending on I or II) onto an infinite line extending from line segment, the section of the line segment that intersects with the border is the outer N% (or A/Bths) of the full length of this line segment.
+    NOTE: More specifically, it is defined such that at any point along the
+    region edge, at the line segment formed between it, perpendicular to the
+    edge, and the projection of the centre of the convex hull or bounding box
+    (depending on I or II) onto an infinite line extending from line segment,
+    the section of the line segment that intersects with the border is the
+    outer N% (or A/Bths) of the full length of this line segment.
 +
-+   IV. For III, the centre point is considered as either the centre of mass of the convex hull or, in case of 'box' mode, the centre of the rectangular bounding box.
++   IV. For III, the centre point is considered as either the centre of mass
+    of the convex hull or, in case of 'box' mode, the centre of the rectangular
+    bounding box.
 
 i. Comments are Lua-style.
 
-Note that all bounding boxes used for reference in the above rules are axis-aligned.
+Note that all bounding boxes used for reference in the above rules are
+axis-aligned.
+
+Akin to Lua, Vexillogos is agnostic to newlines and indentation. Any non-zero
+amount of whitespace is sufficient to separate tokens.
 
 
 [#example]
