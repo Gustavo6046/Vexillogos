@@ -114,6 +114,7 @@ amount of whitespace is sufficient to separate tokens.
 flag ratio 2:3 split horizontal 3 bars
     -- To colour a region, we simply follow its specifier with a colour value.
     region 1 #690420 end
+    region 3 #069420 end
 
     -- Instead of a colour value, we can use 'split' followed by a split specifier.
     region 2 split horizontal 5 bars
@@ -142,7 +143,7 @@ flag ratio 2:3 split horizontal 3 bars
                 region inner #800850 end
             end
         end
-    region 3 #069420 end
+    end
 end
 ----
 
