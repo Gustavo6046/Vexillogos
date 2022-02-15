@@ -54,7 +54,7 @@ Note that all bounding boxes used for reference in the above rules are axis-alig
 
 
 [#example]
-= Example
+== Example
 
 [source,lua]
 ----
@@ -102,7 +102,7 @@ image::example.svg[ A manual SVG rendering of the example flag in the Vexillogos
 
 
 [#licensing]
-= Licensing
+== Licensing
 
 The Vexillogos language is free for use in all circumstances. It may not be patented.
 
