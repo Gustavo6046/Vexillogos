@@ -1,4 +1,4 @@
-= Vexillogos 1.0
+= Vexillogos 1.0.1
 :description: A vexillological description syntax, made for humans and computers alike.
 Gustavo Ramos Rehermann
 :toc:
@@ -51,9 +51,22 @@ if the region is not a rectangle or convex shape.
     (for vertical splits), or top to bottom (for horizontal splits), starting at 1.
 +   II. Regular shape splits, split a region into an 'inner' and an 'outer'
     region, which are complements of the region; e.g. for a rectangle with a
-    losangle inside it,'outer' is the area outside the rectangle. regular
+    losangle inside it, 'outer' is the area outside the rectangle. regular
     shapes are inscribed as large as possible in the centre of the previous
     region.
++
+The following regular shapes are defined by standard, but more may be
+implemented: `circle`, `losangle`, `equitriangle` (equilateral triangle),
+`square`, `pentagon`, `hexagon`, `octagon`, `fourstar`, `fivestar`,
+`sixstar`.
++
+The `{four,five,six}star` shapes are
+https://en.wikipedia.org/wiki/Star_polygon#Simple_isotoxal_star_polygons[concave isotonal star polygons],
+with the outer radius being the automatic radius of any regular shape
+(i.e. the maximum radius inscribable within the current region), and the
+inner radius defaulting to 50% of the outer radius, a default which is
+overridable with `inner X`, where X is a percentage or ratio value which
+multiplies the outer radius (e.g. `25%`, `1/4` or `2:8`).
 
 g. Diagonal splits, split a region into 'left' and 'right' regions, by defining
 a line splitting thruogh the centre of the region, that from left to right
