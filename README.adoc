@@ -1,5 +1,5 @@
 Vexillogos 1.0
---------------
+==============
 Gustavo Ramos Rehermann
 :description: A vexillological description syntax, made for humans and computers alike.
 :toc:
